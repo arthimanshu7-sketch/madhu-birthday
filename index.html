@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Madhu — My Love, My Baby Girl, My Everything</title>
+  <style>
+    :root {
+      --bg-main: #161118;
+      --bg-lights-off: #06070c;
+      --card-bg: #221a24;
+      --accent: #ff4d8d;
+      --accent-soft: #ff9ebb;
+      --gold: #ffd166;
+      --text: #fff7fa;
+      --dot: rgba(255, 255, 255, 0.11);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Georgia", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      background-image: radial-gradient(var(--dot) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+      transition: background 0.5s ease, color 0.4s ease;
+    }
+
+    body.lights-off {
+      background-color: var(--bg-lights-off);
+      background-image: none;
+    }
+
+    /* Falling hearts, teddies & flowers */
+    .floating-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    body.lights-off .floating-layer {
+      opacity: 0.16;
+    }
+
+    .floater {
+      position: absolute;
+      top: -40px;
+      font-size: 16px;
+      opacity: 0.88;
+      animation: fall linear infinite;
+    }
+
+    .floater.teddy {
+      font-size: 19px;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-40px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    /* Stage layout with Left & Right photo frames */
+    .stage-wrapper {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: none;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 36px 20px 64px;
+    }
+
+    .stage-wrapper.active {
+      display: flex;
+    }
+
+    body.lights-off .side-photo {
+      opacity: 0.12;
+    }
+
+    .side-photo {
+      width: 175px;
+      min-width: 140px;
+      background: #2b202e;
+      border: 2px solid rgba(255, 158, 187, 0.45);
+      border-radius: 16px;
+      padding: 8px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      flex-shrink: 0;
+      position: sticky;
+      top: 28px;
+      transition: opacity 0.4s ease, transform 0.3s ease;
+    }
+
+    .side-photo.left-frame {
+      transform: rotate(-2deg);
+    }
+
+    .side-photo.right-frame {
+      transform: rotate(2deg);
+    }
+
+    .side-photo img {
+      width: 100%;
+      height: 195px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .rot-90 {
+      transform: rotate(90deg) scale(1.22);
+    }
+
+    .rot-neg90 {
+      transform: rotate(-90deg) scale(1.22);
+    }
+
+    .rot-180 {
+      transform: rotate(180deg);
+    }
+
+    .frame-fallback {
+      width: 100%;
+      height: 195px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, rgba(255, 77, 141, 0.2), rgba(255, 209, 102, 0.14));
+      border: 1px dashed rgba(255, 158, 187, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff0f7;
+      padding: 8px;
+    }
+
+    .side-caption {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .stage-center {
+      flex: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      background: rgba(34, 26, 36, 0.9);
+      border: 1px solid rgba(255, 158, 187, 0.28);
+      border-radius: 24px;
+      padding: 34px 24px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    body.lights-off .stage-center {
+      background: rgba(12, 14, 24, 0.95);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .eyebrow {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(1.7rem, 4.2vw, 2.6rem);
+      line-height: 1.25;
+    }
+
+    .love-subtitle {
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .subtext {
+      max-width: 540px;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: #f2e4ec;
+    }
+
+    .cta-btn {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      border: none;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), #ff7aa8);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(255, 77, 141, 0.35);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .cta-btn:hover:not(:disabled) {
+      transform: scale(1.04);
+    }
+
+    .cta-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .hidden-step-btn {
+      display: none;
+    }
+
+    .hidden-step-btn.visible {
+      display: inline-block;
+    }
+
+    /* Envelope */
+    .envelope-card {
+      background: #2f2332;
+      border: 2px solid var(--accent-soft);
+      border-radius: 18px;
+      padding: 24px 28px;
+      width: 260px;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Cake Cutting */
+    .cake-area {
+      background: #2d2130;
+      border: 2px dashed var(--gold);
+      border-radius: 18px;
+      padding: 24px;
+      width: 280px;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .cake-emoji {
+      font-size: 56px;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .cake-emoji.cut {
+      transform: scale(1.08) rotate(-4deg);
+    }
+
+    .cake-status {
+      margin-top: 10px;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    /* 10 Favorite Photos Grid */
+    .fav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 14px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .fav-card {
+      background: #2c202f;
+      border: 1px solid rgba(255, 158, 187, 0.3);
+      border-radius: 12px;
+      padding: 8px;
+    }
+
+    .fav-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .fav-fallback {
+      width: 100%;
+      height: 150px;
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(255, 77, 141, 0.16), rgba(255, 209, 102, 0.12));
+      border: 1px dashed rgba(255, 158, 187, 0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff0f7;
+      padding: 6px;
+    }
+
+    .fav-label {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-soft);
+    }
+
+    /* Fancy Long Letter */
+    .letter-box {
+      width: 100%;
+      text-align: left;
+      background: linear-gradient(180deg, rgba(44, 32, 47, 0.96), rgba(31, 22, 34, 0.98));
+      border-radius: 20px;
+      padding: 32px 26px;
+      line-height: 2;
+      border: 1px solid rgba(255, 158, 187, 0.25);
+      box-shadow: inset 0 0 28px rgba(255, 77, 141, 0.06);
+    }
+
+    .letter-lead {
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: #fff2f8;
+      padding-bottom: 20px;
+      margin-bottom: 22px;
+      border-bottom: 1px dashed rgba(255, 158, 187, 0.3);
+    }
+
+    .letter-story p {
+      font-size: 1rem;
+      line-height: 2.05;
+      color: #f9eaf2;
+      margin-bottom: 20px;
+      letter-spacing: 0.15px;
+    }
+
+    .life-coming-line {
+      margin: 24px 0;
+      padding: 16px 18px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255, 209, 102, 0.08);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--gold);
+    }
+
+    .chants-section {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px dashed rgba(255, 158, 187, 0.3);
+    }
+
+    .chants-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent-soft);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .chants-grid {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 13px;
+      line-height: 1.85;
+      color: #ffe6f0;
+      background: rgba(18, 12, 20, 0.65);
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .final-thank-you {
+      text-align: center;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-top: 24px;
+      letter-spacing: 0.4px;
+    }
+
+    @media (max-width: 900px) {
+      .stage-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .side-photo {
+        position: static;
+        width: 100%;
+        max-width: 300px;
+        transform: none !important;
+      }
+      .side-photo img,
+      .frame-fallback {
+        height: 215px;
+      }
+      .letter-box {
+        padding: 22px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Falling Hearts, Teddies & Flowers -->
+  <div class="floating-layer" id="floating-layer"></div>
+
+  <!-- STEP 1: ENVELOPE -->
+  <section class="stage-wrapper active" data-stage="0">
+    <div class="side-photo left-frame" data-slot="side-1">
+      <div class="frame-fallback">🧸 🌸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🧸 Madhu</div>
+    </div>
+
+    <div class="stage-center">
+      <div class="eyebrow">🧸 A Little Something</div>
+      <h1>There's something for you, Madhu</h1>
+      <p class="subtext">A special birthday surprise made just for you.</p>
+      <div class="envelope-card">
+        <div style="font-size: 38px;">💌</div>
+        <div style="margin-top: 8px; font-weight: 700;">For Madhu</div>
+      </div>
+      <button type="button" class="cta-btn" id="open-surprise-btn">Open your surprise 💖</button>
+    </div>
+
+    <div class="side-photo right-frame" data-slot="side-2">
+      <div class="frame-fallback">🌸 🧸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🌸 Madhu</div>
+    </div>
+  </section>
+
+  <!-- STEP 2: LIGHTS -->
+  <section class="stage-wrapper" data-stage="1">
+    <div class="side-photo left-frame" data-slot="side-3">
+      <div class="frame-fallback">🧸 🌸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🧸 Madhu</div>
+    </div>
+
+    <div class="stage-center">
+      <div class="eyebrow">Shhh...</div>
+      <h1 id="lights-heading">The room is waiting for you, Madhu.</h1>
+      <p class="subtext" id="lights-subtext">Someone left the lights off on purpose.</p>
+      <button type="button" class="cta-btn" id="turn-lights-btn">Turn on the lights 💡</button>
+      <button type="button" class="cta-btn hidden-step-btn" id="after-lights-next-btn">Next ✨</button>
+    </div>
+
+    <div class="side-photo right-frame" data-slot="side-4">
+      <div class="frame-fallback">🌸 🧸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">💖 Madhu</div>
+    </div>
+  </section>
+
+  <!-- STEP 3: HAPPY BIRTHDAY -->
+  <section class="stage-wrapper" data-stage="2">
+    <div class="side-photo left-frame" data-slot="side-5">
+      <div class="frame-fallback">🌸 🧸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🌸 Madhu</div>
+    </div>
+
+    <div class="stage-center">
+      <div class="eyebrow">🧸 Look who's having a birthday</div>
+      <h1>Happy Birthday, <span style="color: var(--accent);">Madhu</span>!</h1>
+      <div class="love-subtitle">My love, my baby girl, my everything 💖</div>
+      <p class="subtext">27/11/2011 • Yay, you're here!</p>
+      <button type="button" class="cta-btn" id="to-cake-btn">There's more ✨</button>
+    </div>
+
+    <div class="side-photo right-frame" data-slot="side-6">
+      <div class="frame-fallback">🧸 🌸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🧸 Madhu</div>
+    </div>
+  </section>
+
+  <!-- STEP 4: MAKE THE FIRST CAKE CUT -->
+  <section class="stage-wrapper" data-stage="3">
+    <div class="side-photo left-frame" data-slot="side-7">
+      <div class="frame-fallback">💖 🧸 🌸<br /><span>Madhu</span></div>
+      <div class="side-caption">💖 Madhu</div>
+    </div>
+
+    <div class="stage-center">
+      <div class="eyebrow">Cake Time 🎂</div>
+      <h1>Make the first cut, Madhu</h1>
+      <p class="subtext">
+        Swipe or tap across the cake to make your first slice. You can only move to the next page after cutting the cake.
+      </p>
+
+      <div class="cake-area" id="cake-area">
+        <div class="cake-emoji" id="cake-emoji">🎂</div>
+        <div class="cake-status" id="cake-status">Swipe or tap the cake to cut it</div>
+      </div>
+
+      <button type="button" class="cta-btn" id="after-cake-btn" disabled>
+        Continue to Wish ✨
+      </button>
+    </div>
+
+    <div class="side-photo right-frame" data-slot="side-8">
+      <div class="frame-fallback">🌸 🧸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🌸 Madhu</div>
+    </div>
+  </section>
+
+  <!-- STEP 5: WISH IS ON ITS WAY -->
+  <section class="stage-wrapper" data-stage="4">
+    <div class="side-photo left-frame" data-slot="side-9">
+      <div class="frame-fallback">🧸 🌸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🧸 Madhu</div>
+    </div>
+
+    <div class="stage-center">
+      <div class="eyebrow">Close your eyes, Madhu...</div>
+      <h1>Your wish is on its way ✨</h1>
+      <p class="subtext">Every little heart and flower is rooting for you.</p>
+      <button type="button" class="cta-btn" id="to-favs-btn">My favorite photos for you 💖</button>
+    </div>
+
+    <div class="side-photo right-frame" data-slot="side-10">
+      <div class="frame-fallback">💖 🧸 🌸<br /><span>Madhu</span></div>
+      <div class="side-caption">💖 Madhu</div>
+    </div>
+  </section>
+
+  <!-- STEP 6: MY FAVORITE PHOTOS FOR YOU (10 PHOTOS) -->
+  <section class="stage-wrapper" data-stage="5">
+    <div class="side-photo left-frame" data-slot="side-11">
+      <div class="frame-fallback">🌸 🧸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🌸 Madhu</div>
+    </div>
+
+    <div class="stage-center">
+      <div class="eyebrow">🧸 For Madhu</div>
+      <h1>My favorite photos for you</h1>
+      <div class="fav-grid" id="fav-grid"></div>
+      <button type="button" class="cta-btn" id="to-letter-btn">Read your letter 💌</button>
+    </div>
+
+    <div class="side-photo right-frame" data-slot="side-12">
+      <div class="frame-fallback">🧸 🌸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🧸 Madhu</div>
+    </div>
+  </section>
+
+  <!-- STEP 7: LETTER FROM MY HEART -->
+  <section class="stage-wrapper" data-stage="6">
+    <div class="side-photo left-frame" data-slot="side-13">
+      <div class="frame-fallback">💖 🌸 🧸<br /><span>Madhu</span></div>
+      <div class="side-caption">💖 Madhu</div>
+    </div>
+
+    <div class="stage-center">
+      <div class="eyebrow">For You, Madhu</div>
+      <h1>A Letter From My Heart</h1>
+
+      <div class="letter-box">
+        <div class="letter-lead">
+          Happy Birthday, my love, my babygirl, my everything! 🎂✨ Having you in my life is the best thing that ever happened to me. Thank you for filling my days with so much warmth, smiles, and endless love. Even from afar, you always feel so close to my heart. May this year bring you all the happiness, peace, and success you truly deserve. Keep shining bright and smiling always. I love you so much, today and every single day! ❤️🥰🌹
+        </div>
+
+        <div class="life-coming-line">
+          Thank you for coming into my life and making it feel so special, Madhu.
+        </div>
+
+        <div class="letter-story">
+          <p>
+            Firstly main tumhe happy birthday kehna chahta hoon aur chahta hoon ki mere bina bhi tumhara birthday ekdum achha jaye aur aage sab kuch tumhare saath achha ho. Pehli cheez ye ki ye note sirf main isliye likh raha hoon ki main apni saari baatein bata sakoon—pareshaniyaan aur baatein—aur I'm sorry. Ye main isliye itna late bata raha hoon kyunki mere ko ye HTML file banane mein bahut, bahut time laga; apne se banaya hai isliye ho sakta hai itna achha na ho, lekin maine poori koshish ki hai banane ki, so achha lage toh achhi baat hai warna koi baat nahi.
+          </p>
+
+          <p>
+            Aur phir se ek baar meri taraf se bahut saari wishes aur sab kuch jo tumhe chahiye wo tumhe hamesha mile, kabhi kuch kharab na ho. Aur ek cheez ki main tumhe kabhi chhod ke na jaoon aur tum mujhe chhod ke na jao—ye meri wish hamesha poori ho, kabhi kharab na ho aisa kuch.
+          </p>
+
+          <p>
+            Ab thodi baatein main tumhe batana chahta hoon, bolna chahta hoon aur samajhna chahta hoon—shayad tum mujhe samjho. Firstly I'm sorry for everything I did, matlab maine aaj tak jo galti ki hai uske liye mujhe maaf kar do. Main soch bhi nahi sakta kitni galtiyan hongi, lekin hain, aur mujhe ho sake toh iske liye maaf kar do. Tumhe na samajhna, hamesha gussa karna—bahut si galtiyan hain meri, I know—aur main chahta hoon ki aage chal ke main sab kuch fix kar loon aur hamesha tumhare saath rahoon, kabhi tumhe chhod ke bhi na jaoon.
+          </p>
+
+          <p>
+            Kabhi main ye nahi chahta ki main tumhe chhodoon ya tum mujhe chhodo, kyunki main jaanta hoon main tumhare bina nahi reh sakta. Aur ek baat aur ki I'm sorry main hamesha kehta hoon ki main tumhe chhod ke chala jaunga, bye, aur in sab cheezon ke liye main sach keh raha hoon ki main tumse bahut pyaar karta hoon. Bas shayad ab pehle jaise samjha nahi paata, kar nahi paata, aur hamesha hurt kar deta hoon, lekin main chahta hoon ki main ye sab sahi kar doon.
+          </p>
+
+          <p>
+            Aur in sab cheezon ki sach-sach wajah batata hoon—thak gaya hoon bahut zyada hamesha koshish karte-karte. Matlab pata hai, kitna bhi family ke liye ya kisi ke liye soch loon, lagta hai ki koi mujhe pasand hi nahi karta hai. Maine bataya nahi, I'm sorry, but idhar beech phir sab log ne bolna shuru kar diya hai, aur pata hai main sach keh raha hoon abhi jo bhi kahunga agar bura lage toh uske liye bhi I'm sorry. Tumne bhi mujhe bahut hurt kiya hai kuch baatein bol ke, lekin koi baat nahi kyunki main zyada karta hoon aur rulaata hoon.
+          </p>
+
+          <p>
+            Lekin main sach bol raha hoon, bhale main tumhare saamne ya kisi ke saamne express nahi kar paata, bata nahi paata, lekin sach toh ye hai ki main bahut pareshan hota hoon, depression sa feel hota hai, heavy anxiety jaisa feel hota hai. Itni tension ho jaati hai jitni baar ye sab sochta hoon ki kabhi tumhare liye kuch nahi kar paaya na family ke liye, tumse milne tak nahi ja pa raha hoon, umeed tod deta hoon—main kitna bekaar hoon.
+          </p>
+
+          <p>
+            Aur sach bata raha hoon main itni mehnat kar raha hoon na, itni mehnat din-raat ki bas kaise bhi payout aa jaye, sabse pehle tumse milne aaoon. Aur iske liye main sach mein bahut mehnat kar raha hoon, aur issi wajah se thak jaata hoon, pareshan ho jaata hoon, stress ho jaata hai, isliye hamesha chup ho jaata hoon, pareshan ho jaata hoon, kabhi kuch bol nahi paata—isliye I'm sorry, I'm so sorry.
+          </p>
+
+          <p>
+            Dekho mere ko zyada kuch nahi bolna, bas mujhe maaf kar do ki main aisa hoon. Main koshish kar raha hoon ki aur better ho jaoon, pehle jaisa banda ho jaoon jo without any pressure ke life jeeta tha. I'm trying, so please samajhna. Isliye main maafi maangna chahta hoon ki bas main sab kuch sahi kar loon. Aur agar sach keh raha hoon main is 10 Dec ko nahi aa paunga, toot jaunga ki main phir se kuch nahi kar paaya—sach mein main bekaar hoon, ye woh—aur sach keh raha hoon main apni poori koshish kar raha hoon ki aa jaoon, but agar nahi aa paaya toh mujhe maaf kar dena.
+          </p>
+
+          <p>
+            Aur main yahi kahunga ki mere se na abhi na aage chal ke umeed rakhna, main umeed ke layak nahi hoon, so samajhna mere ko, I'm sorry. Bas zyada kuch nahi bolna hai, yahi sab bolna tha. Please itna tension mat liya karo, main tumko kabhi chhod ke nahi jaunga tumhari kasam. Bas main koshish kar raha hoon main apna best de sakoon apne relationship aur har cheez mein, aur bas apna din achhe se bitana, apna birthday jitna achha se bana paana banana, aur ho sake toh maaf kar dena mujhe aur hamesha khush raho. Bas main yahi chahta hoon aur kuch nahi, aur hamesha main tumhare saath rahoon aur tumhara agla saal har ek din birthday se leke jo bhi hai sab, sab, sab, sab, sab, sab badhiya jaye, kuch bhi kharab na jaye—yahi kahunga, ho gaya aur kuch nahi kehna bas.
+          </p>
+
+          <p>
+            Aur haan ek baat aur ki meri tabiyat bahut kharab hai idhar beech lekin main batata nahi hoon, isliye bhi maaf kar dena. Aur tum mujhe in sab cheezon ke liye leke bolti ho bahut kuch toh main kya hi boloon, bura toh lagta hai lekin main kuch bolta nahi hoon, kya hi boloon, kabhi kuch bol hi nahi paata hoon kya boloon, I'm sorry. Shayad isme bhi thodi meri bhi thodi si galti hai ki main kabhi samajh nahi paata hoon na bol paata hoon, kya karoon, I'm sorry.
+          </p>
+
+          <p>
+            And ek baat aur ye ki mujhe sach mein har ek ladke, har ek person se dikkat hai—matlab main kya boloon, bol toh bahut baar chuka hoon lekin har baar bolne se bhi insaan nahi samajhta hai isliye nahi bolta hoon mama se aur tumhare friends. Kyunki jitne tumhare friends hain utne mere nahi hain, jitna tum sochti ho meri female friends waise bhi koi nahi hain, bas idhar beech usne waapas message kiya tha toh maine usse thodi si baat ki thi aur ab toh kar bhi nahi raha hoon.
+          </p>
+
+          <p>
+            And main sach keh raha hoon isliye mujhe pata hai main kitna bhi keh doon ki door raho apne male friends aur mama se, tum nahi rehti ho, tum unse door nahi hoti, baat karti ho chahe main kitna bhi mana kar doon, mere peeth peeche school mein bhi baat karti ho. Dekho maano ya na maano lekin tum baat karti ho, bhale mujhe na batao koi baat nahi, main ab iske upar aur kuch nahi keh sakta—shayad tum samajh jao. Aur rahi baat sahi karne ki, mujhe nahi pata hai, main pareshan ho gaya hoon kaise sab sahi hoga, kaise kya karna hai, main pagal ho chuka hoon, mujhe nahi pata kaise. I'm trying my best to fix everything—agar main kar paoon toh theek, na kar paoon toh maaf kar dena kyunki iske baad shayad main sab khatam kar doon agar main aise hi hurt karta rahunga toh. Bas yahi bolna tha, ho gaya.
+          </p>
+
+          <p style="text-align: center; font-weight: 700; color: var(--accent-soft);">
+            I really really love youu soo muchh 💖
+          </p>
+        </div>
+
+        <div class="chants-section">
+          <div class="chants-title">💖 I love you Madhu (100 Times) 💖</div>
+          <div class="chants-grid" id="love-100"></div>
+
+          <div class="chants-title">🧸 I miss you Madhu (100 Times) 🧸</div>
+          <div class="chants-grid" id="miss-100"></div>
+
+          <div class="final-thank-you">Thank you for everything ✨💖</div>
+        </div>
+      </div>
+
+      <button type="button" class="cta-btn" id="restart-btn">Start Again ↺</button>
+    </div>
+
+    <div class="side-photo right-frame" data-slot="side-14">
+      <div class="frame-fallback">🌸 🧸 💖<br /><span>Madhu</span></div>
+      <div class="side-caption">🌸 Madhu</div>
+    </div>
+  </section>
+
+  <script>
+    // Optional manual rotation overrides for slots where a photo was rotated/upside-down
+    // Allowed values: "", "rot-90", "rot-neg90", "rot-180"
+    const PHOTO_ROTATIONS = {
+      "side-1": "",
+      "side-2": "",
+      "side-3": "",
+      "side-4": "",
+      "side-5": "",
+      "side-6": "",
+      "side-7": "",
+      "side-8": "",
+      "side-9": "",
+      "side-10": "",
+      "side-11": "",
+      "side-12": "",
+      "side-13": "",
+      "side-14": "",
+      "fav-1": "",
+      "fav-2": "",
+      "fav-3": "",
+      "fav-4": "",
+      "fav-5": "",
+      "fav-6": "",
+      "fav-7": "",
+      "fav-8": "",
+      "fav-9": "",
+      "fav-10": ""
+    };
+
+    const stageEls = Array.from(document.querySelectorAll(".stage-wrapper"));
+    let cakeIsCut = false;
+
+    function goToStage(index) {
+      stageEls.forEach((el, i) => {
+        el.classList.toggle("active", i === index);
+      });
+      if (index !== 1) {
+        document.body.classList.remove("lights-off");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openLightsStage() {
+      document.body.classList.add("lights-off");
+      document.getElementById("lights-heading").textContent = "The room is waiting for you, Madhu.";
+      document.getElementById("lights-subtext").textContent = "Someone left the lights off on purpose.";
+      document.getElementById("turn-lights-btn").style.display = "inline-block";
+      document.getElementById("after-lights-next-btn").classList.remove("visible");
+      goToStage(1);
+    }
+
+    function turnLightsOn() {
+      document.body.classList.remove("lights-off");
+      document.getElementById("lights-heading").textContent = "The lights are on!";
+      document.getElementById("lights-subtext").textContent = "Now let's continue the surprise.";
+      document.getElementById("turn-lights-btn").style.display = "none";
+      document.getElementById("after-lights-next-btn").classList.add("visible");
+    }
+
+    function resetCake() {
+      cakeIsCut = false;
+      const cakeEmoji = document.getElementById("cake-emoji");
+      const cakeStatus = document.getElementById("cake-status");
+      const nextBtn = document.getElementById("after-cake-btn");
+
+      cakeEmoji.textContent = "🎂";
+      cakeEmoji.classList.remove("cut");
+      cakeStatus.textContent = "Swipe or tap the cake to cut it";
+      nextBtn.disabled = true;
+    }
+
+    function handleCakeCut() {
+      if (cakeIsCut) return;
+      cakeIsCut = true;
+      const cakeEmoji = document.getElementById("cake-emoji");
+      const cakeStatus = document.getElementById("cake-status");
+      const nextBtn = document.getElementById("after-cake-btn");
+
+      cakeEmoji.textContent = "🍰";
+      cakeEmoji.classList.add("cut");
+      cakeStatus.textContent = "First slice cut! You can continue now.";
+      nextBtn.disabled = false;
+    }
+
+    function restartSurprise() {
+      resetCake();
+      goToStage(0);
+    }
+
+    document.getElementById("open-surprise-btn").addEventListener("click", openLightsStage);
+    document.getElementById("turn-lights-btn").addEventListener("click", turnLightsOn);
+    document.getElementById("after-lights-next-btn").addEventListener("click", () => goToStage(2));
+    document.getElementById("to-cake-btn").addEventListener("click", () => goToStage(3));
+    document.getElementById("cake-emoji").addEventListener("click", handleCakeCut);
+    document.getElementById("after-cake-btn").addEventListener("click", () => goToStage(4));
+    document.getElementById("to-favs-btn").addEventListener("click", () => goToStage(5));
+    document.getElementById("to-letter-btn").addEventListener("click", () => goToStage(6));
+    document.getElementById("restart-btn").addEventListener("click", restartSurprise);
+
+    let touchStartY = null;
+    const cakeArea = document.getElementById("cake-area");
+    cakeArea.addEventListener("touchstart", (e) => {
+      if (e.touches && e.touches.length > 0) {
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+    cakeArea.addEventListener("touchend", (e) => {
+      if (touchStartY !== null && e.changedTouches && e.changedTouches.length > 0) {
+        const diff = Math.abs(e.changedTouches[0].clientY - touchStartY);
+        if (diff > 20) handleCakeCut();
+      }
+      touchStartY = null;
+    });
+
+    // Build 10 "My favorite photos for you" cards
+    const favGrid = document.getElementById("fav-grid");
+    for (let i = 1; i <= 10; i++) {
+      const item = document.createElement("div");
+      item.className = "fav-card";
+      item.dataset.slot = `fav-${i}`;
+      item.innerHTML = `
+        <div class="fav-fallback">💖 🌸 🧸<br /><span>Madhu #${i}</span></div>
+        <div class="fav-label">💖 #${i}</div>
+      `;
+      favGrid.appendChild(item);
+    }
+
+    function attachImageIfValid(container, slot, src) {
+      const probe = new Image();
+      probe.onload = () => {
+        const fb = container.querySelector(".frame-fallback, .fav-fallback");
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "Madhu";
+        const rotClass = PHOTO_ROTATIONS[slot];
+        if (rotClass) img.classList.add(rotClass);
+        if (fb) fb.replaceWith(img);
+        else container.prepend(img);
+      };
+      probe.src = src;
+    }
+
+    document.querySelectorAll(".side-photo[data-slot]").forEach((box) => {
+      const slot = box.dataset.slot;
+      attachImageIfValid(box, slot, `photos/${slot}.jpg`);
+    });
+
+    document.querySelectorAll(".fav-card[data-slot]").forEach((card) => {
+      const slot = card.dataset.slot;
+      attachImageIfValid(card, slot, `photos/${slot}.jpg`);
+    });
+
+    // Populate "I love you Madhu" 100 times and "I miss you Madhu" 100 times
+    const loveContainer = document.getElementById("love-100");
+    const missContainer = document.getElementById("miss-100");
+    loveContainer.textContent = Array.from({ length: 100 }, (_, i) => `${i + 1}. I love you Madhu`).join(" • ");
+    missContainer.textContent = Array.from({ length: 100 }, (_, i) => `${i + 1}. I miss you Madhu`).join(" • ");
+
+    // Create falling hearts, teddies & flowers
+    const floatingLayer = document.getElementById("floating-layer");
+    const items = ["💖", "🧸", "🌸", "💕", "🌺", "🧸", "🌷", "💗", "🌼"];
+    for (let i = 0; i < 24; i++) {
+      const el = document.createElement("div");
+      const icon = items[i % items.length];
+      el.className = icon === "🧸" ? "floater teddy" : "floater";
+      el.textContent = icon;
+      el.style.left = `${(i * 4.3) % 100}%`;
+      el.style.animationDuration = `${7 + (i % 6)}s`;
+      el.style.animationDelay = `${(i % 5) * -1.4}s`;
+      floatingLayer.appendChild(el);
+    }
+  </script>
+</body>
+</html>
